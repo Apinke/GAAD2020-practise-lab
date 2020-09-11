@@ -1,0 +1,81 @@
+Getting started with Compute Engine
+Objectives
+in this lab ,i will learn how 
+Create a  Compute Engine virtual machine using Google Cloud Console
+Create a Compute Engine virtual machine using the gcloud commmandline interface
+Connect between the two instances
+Steps are as follows
+
+Create a Compute Engine VM using GCP
+gcloud compute instances create "my-vm-1"\--machine type "n1-standard-1 -- \image" project debian cloud"\ -- image "  debian-9- stretch" \subnet" default "-- tags http
+
+To create firewall command line
+gcloud compute firewall-rules create allow- http--ALLOW -- destination= INGRESS --rules= http: 80-- target- tag= http
+
+Create a Virtual Machine Using the Commandline Interface
+Choose a zone and use the grep tool to filter out list associated with us-central1
+gcloud compute zones list/grep us-central1
+Set the zone to  another as instructed 
+gcloud config set compute/zone us-central1-b
+Then create a VM in that zone
+gcloud compute instances create " my -vm-2"\
+-- machine type " n1-standard1 "\
+-- image project"debian cloud"\
+--image ''debian-9-stretch-v2019213"\
+--subnet"default"
+
+Connect two instances
+Use the ping commmand to  confirm if my-vm-2 can reach my-vm-1 over the network.
+
+Connect to my-vm- 2;
+gcloud compute ssh my-vm-2
+
+ping my-vm-1 from my-vm-2
+ping -c 4 my-vm-1
+
+Use the ssh command to open command prompt on my -vm-1 from my-vm-2
+ssh my-vm-1
+
+At the command prompt on my-vm-1 ,install the nginx web server
+
+sudo apt-get install nginx-light -y
+ Then use the nano text editor to add a custom message to the home page of the web server
+
+sudo nano /var/www/html/index.nginx-debian.html
+
+Use the arrow keys to move the cursor to the line just below the h1 header. Add text like this, and replace YOUR_NAME with your name:
+
+Hi from Gbemisola
+
+Press Ctrl+O and then press Enter to save your edited file, and then press Ctrl+X to exit the nano text editor.
+Confirm the webserver 
+Confirm that the web server is serving your new page.
+ At the command prompt on my-vm-1, execute this command:
+
+curl http://localhost/
+
+we will exit to get bck to my-vm-1 from my-vm-2
+The result should be
+The response will be the HTML source of the web server's home page, including your line of custom text.
+
+ Then exit the command prompt on my-vm-1 to get back to my-vm-2 execute this command:
+
+exit
+We confirm that my-vm-2 can reach the web server on my-vm-1
+
+curl http://my-vm-1/
+
+The response will again be the HTML source of the web server's home page, including your line of custom text.
+
+We proceed to Navigation menu  click compute engine vm instances 
+
+Copy the External IP address for my-vm-1 
+from this command
+
+gcloud compute instances list--zone us central1b
+
+paste the coied external IP into the address bar of a new browser tab.
+ You will see your web server's home page, including your custom text.
+
+
+ paste it into the address bar of a new browser tab. You will see your web server's home page, including your custom text.
